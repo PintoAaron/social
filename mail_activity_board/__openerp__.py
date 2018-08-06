@@ -22,5 +22,5 @@
     ],
     'qweb': [
         'static/src/xml/inherit_chatter.xml',
-    ]
+    ],
 }

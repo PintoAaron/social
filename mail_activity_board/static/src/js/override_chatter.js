@@ -5,27 +5,27 @@ odoo.define('mail.Chatter.activity', function(require){
     "use strict";
 
     var chatter = require('mail.Chatter');
-    var concurrency = require('web.concurrency');
     var core = require('web.core');
+    var Model = require('web.DataModel');
     var _t = core._t;
     var QWeb = core.qweb;
 
     chatter.include({
 
-        events: _.extend({}, chatter.prototype.events, {
+        events: {
             'click .o_chatter_button_list_activity': '_onListActivity',
-        }),
-
-        _onListActivity: function (event) {
-            this._rpc({
-                    model: this.record.model,
-                    method: 'redirect_to_activities',
-                    args: [[]],
-                    kwargs: {'id':this.record.res_id,
-                             'model':this.record.model},
-                    context: this.record.getContext(),
-            }).then($.proxy(this, "do_action"));
         },
 
+        _onListActivity: function (event) {
+            var res_model = this.view.dataset.model;
+            var res_id = this.view.datarecord.id;
+            var ResModel = new Model(res_model);
+
+            ResModel.call('redirect_to_activities',
+                [],
+                {'context': {'default_id':res_id,
+                            'default_model':res_model}}
+            ).then($.proxy(this, "do_action"));
+        },
     });
 });
