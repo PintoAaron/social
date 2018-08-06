@@ -8,6 +8,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+bin/
 build/
 develop-eggs/
 dist/
@@ -45,9 +46,30 @@ coverage.xml
 
 # Translations
 *.mo
+*.pot
+
+# Pycharm
+.idea
+
+# Eclipse
+.settings
+
+# Visual Studio cache/options directory
+.vs/
+
+# OSX Files
+.DS_Store
 
 # Django stuff:
 *.log
+
+# Mr Developer
+.mr.developer.cfg
+.project
+.pydevproject
+
+# Rope
+.ropeproject
 
 # Sphinx documentation
 docs/_build/
