@@ -14,6 +14,7 @@
         'calendar',
         'board',
         'mail_activity',
+        'mail_activity_calendar',
     ],
     'data': [
         'views/templates.xml',

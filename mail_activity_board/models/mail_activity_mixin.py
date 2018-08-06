@@ -1,10 +1,12 @@
 # Copyright 2018 David Juaneda - <djuaneda@sdi.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import models
+
+from openerp.addons.mail_activity.models.mail_activity_mixin import setup_mail_actitivities
 
 
-class MailActivityMixin(models.AbstractModel):
-    _inherit = 'mail.activity.mixin'
+def setup_mail_actitivities(cls):
+
+    cls = setup_mail_actitivities(cls)
 
     def redirect_to_activities(self, **kwargs):
         """Redirects to the list of activities of the object shown.
@@ -30,3 +32,6 @@ class MailActivityMixin(models.AbstractModel):
         action['views'] = views
         action['domain'] = [('res_id', '=', id)]
         return action
+    cls.redirect_to_activities = redirect_to_activities
+
+    return cls
