@@ -30,6 +30,7 @@ class MailActivity(models.Model):
             'default_description': self.note and tools.html2plaintext(
                 self.note) or '',
             'default_activity_ids': [(6, 0, self.ids)],
+            'default_user_id': self.user_id.id,
         }
         return action
 

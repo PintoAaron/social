@@ -64,7 +64,6 @@
                 <attribute name="decoration-warning">(date_deadline == current_date)</attribute>
                 <attribute name="decoration-success">(date_deadline &gt; current_date)</attribute>
             </xpath>
-
         </field>
     </record>
 
