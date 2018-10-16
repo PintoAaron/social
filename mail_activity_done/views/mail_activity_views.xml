@@ -14,6 +14,9 @@
                 <field name="state"/>
                 <field name="date_done"/>
             </field>
+            <button name="action_done" position="attributes">
+                <attribute name="attrs">{'invisible':[('state', '=', 'done')]}</attribute>
+            </button>
         </field>
     </record>
 

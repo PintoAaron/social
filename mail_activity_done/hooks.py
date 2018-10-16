@@ -5,6 +5,7 @@
 from openerp.addons.mail_activity.models.mail_activity import MailActivity
 from openerp.addons.mail_activity.models.mail_activity import \
     message_post_with_view
+from openerp import fields
 
 
 def pre_init_hook(cr):
@@ -44,7 +45,7 @@ def post_load_hook():
             record = self.env[activity.res_model].browse(activity.res_id)
             # ----  START OF PATCH
             activity.done = True
-            activity.date_done = fields.Date.today
+            activity.date_done = fields.Date.today()
             # ----  END OF PATCH
             message_post_with_view(
                 record,
