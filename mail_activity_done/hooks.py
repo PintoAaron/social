@@ -44,6 +44,7 @@ def post_load_hook():
             record = self.env[activity.res_model].browse(activity.res_id)
             # ----  START OF PATCH
             activity.done = True
+            activity.date_done = fields.Date.today
             # ----  END OF PATCH
             message_post_with_view(
                 record,

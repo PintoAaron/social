@@ -12,6 +12,9 @@ class MailActivity(models.Model):
     done = fields.Boolean(default=False)
     state = fields.Selection(selection_add=[
         ('done', 'Done')], compute='_compute_state')
+    date_done = fields.Date(
+        'Completed Date', index=True,
+    )
 
     @api.depends('done')
     def _compute_state(self):
