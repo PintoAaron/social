@@ -16,10 +16,10 @@ class TestMailDebrand(common.TransactionCase):
 
     def test_default_debrand(self):
         self.assertIn('using', self.default_arch)
-        res = self.env["mail.template"]._debrand_body(self.default_arch)
+        res = self.env["mail.thread"]._debrand_body(self.default_arch)
         self.assertNotIn('using', res)
 
     def test_paynow_debrand(self):
         self.assertIn('Powered by', self.paynow_arch)
-        res = self.env["mail.template"]._debrand_body(self.paynow_arch)
-        self.assertNotIn('Powered by', res)
+        res = self.env["mail.thread"]._debrand_body(self.paynow_arch)
+        self.assertNotIn(b'Powered by', res)

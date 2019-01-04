@@ -1,10 +1,10 @@
-from lxml import etree
+import lxml.html
 import re
 from odoo import _, api, models
 
 
-class MailTemplate(models.Model):
-    _inherit = "mail.template"
+class MailThread(models.AbstractModel):
+    _inherit = "mail.thread"
 
     @api.model
     def _debrand_body(self, html):
@@ -16,7 +16,7 @@ class MailTemplate(models.Model):
         powered_by = _("Powered by")
         if powered_by not in html:
             return html
-        root = etree.fromstring(html)
+        root = lxml.html.fromstring(html)
         powered_by_elements = root.xpath(
             "//*[text()[contains(.,'%s')]]" % powered_by
         )
@@ -31,9 +31,11 @@ class MailTemplate(models.Model):
                 for child in elem.getchildren():
                     elem.remove(child)
                 elem.text = None
-        return str(etree.tostring(root))
+        return lxml.html.tostring(root)
 
     @api.model
-    def render_post_process(self, html):
-        html = super().render_post_process(html)
-        return self._debrand_body(html)
+    def _replace_local_links(self, html, base_url=None):
+        if not isinstance(html, str):
+            html = html.decode("utf-8")
+        html = self._debrand_body(html)
+        return super()._replace_local_links(html, base_url)

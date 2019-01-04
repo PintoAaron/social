@@ -2,7 +2,7 @@
 
 {
     "name": "Mail Debrand",
-    "summary": "Remove Odoo branding in sent emails",
+    "summary": "Remove Odoo branding in sent emails.",
     "version": "12.0.2.0.0",
     "category": "Social Network",
     "website": "https://odoo-community.org/",
