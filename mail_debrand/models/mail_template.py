@@ -17,12 +17,20 @@ class MailTemplate(models.Model):
         if self == mail_template:
             obj = self.with_context(mail_debrand=True)
         else:
-            obj = self
+            obj = self.with_context(mail_powered_debrand=True)
         return super(MailTemplate, obj).generate_email(res_ids, fields=fields)
 
     @api.model
     def _debrand_body(self, body):
         using_word = _('using')
+        odoo_word = _('Odoo')
+        return re.sub(
+            using_word + "(.*)[\r\n]*(.*)>" + odoo_word + r"</a>", "", body,
+        )
+
+    @api.model
+    def _debrand_powered_body(self, body):
+        using_word = _('Powered by')
         odoo_word = _('Odoo')
         return re.sub(
             using_word + "(.*)[\r\n]*(.*)>" + odoo_word + r"</a>", "", body,
@@ -40,4 +48,10 @@ class MailTemplate(models.Model):
             else:
                 for res_id, body in res.iteritems():
                     res[res_id] = self._debrand_body(body)
+        if post_process and self.env.context.get('mail_powered_debrand'):
+            if isinstance(res, basestring):
+                res = self._debrand_powered_body(res)
+            else:
+                for res_id, body in res.iteritems():
+                    res[res_id] = self._debrand_powered_body(body)
         return res
