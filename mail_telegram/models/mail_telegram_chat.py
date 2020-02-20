@@ -5,8 +5,8 @@ from odoo import fields, models
 
 
 class MailTelegramChat(models.Model):
-    _name = 'mail.telegram.chat'
-    _description = 'Mail Telegram Chat'
+    _name = "mail.telegram.chat"
+    _description = "Mail Telegram Chat"
 
     name = fields.Char(required=True)
     active = fields.Boolean(default=True)
